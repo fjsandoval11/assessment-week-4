@@ -1,3 +1,6 @@
+const favMovies = require('./movieDb.json')
+let globalId = 2
+
 module.exports = {
 
     getCompliment: (req, res) => {
@@ -24,10 +27,33 @@ module.exports = {
     },
 
     getLuck: (req,res) => {
-        let luckyNums = [1,2,34,53,23,54,12,12]
 
-        res.status(200).send(luckyNums)
+        let luckyNums = []
 
+        for (i = 0, j = 5; i <= j; i++){
+            luckyNums.push(Math.floor(Math.random() * 100))
+        
+        }
+         res.status(200).send(luckyNums)
+
+    },
+    getChannel: (req,res) => {
+        let channel = 'show of the day is : Ed,Edd, and Eddy'
+        res.status(200).send(channel)
+    },
+
+    createMovie: (req,res) => {
+        const {movieTitle} = req.body
+        let newMovie = {
+            globalId,
+            movieTitle
+        }
+        favMovies.push(newMovie)
+        globalId++
+        res.status(200).send(favMovies)
+    },
+    getMovies: (req, res) => {
+        res.status(200).send(favMovies)
     }
 
 }
